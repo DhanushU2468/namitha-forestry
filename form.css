@@ -1,0 +1,85 @@
+/* Global Reset & Box Sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body with a full-page gradient background */
+  body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #f953c6, #b91d73);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Centered Card Container */
+  .contact-container {
+    background-color: #fff;
+    width: 400px; /* Adjust as needed */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text and form elements */
+  }
+  
+  /* Form Section */
+  .contact-left {
+    width: 100%;
+  }
+  
+  /* Title and Horizontal Rule */
+  .contact-left-title h2 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .contact-left-title hr {
+    width: 50px;
+    margin: 1rem auto 2rem;
+    border: none;
+    height: 3px;
+    background-color: #f953c6; /* Accent color for the HR */
+  }
+  
+  /* Input Fields & Textarea */
+  .contact-inputs {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1.5rem;
+    font-size: 16px;
+    padding: 0.5rem 0;
+    color: #333;
+  }
+  
+  .contact-inputs:focus {
+    outline: none;
+    border-bottom-color: #f953c6; /* Focus accent color */
+  }
+  
+  /* Adjust textarea to match input style */
+  textarea.contact-inputs {
+    resize: none;
+    height: 80px;
+  }
+  
+  /* Submit Button */
+  button[type="submit"] {
+    background: linear-gradient(to right, #ff5f6d, #ffc371);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+  

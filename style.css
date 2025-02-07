@@ -1,0 +1,414 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #2c6e49;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #4CAF50;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    background-color: #367c39;
+    border-radius: 5px;
+}
+.search-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#plant-search {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+}
+
+/* Search Results */
+#search-results {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+section {
+    padding: 40px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 28px;
+    color: #2c6e49;
+}
+
+/* Swiper Styles */
+.swiper-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.swiper-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-width: 250px;
+    opacity: 0;
+    transform: translateX(50px);
+    animation: slideIn 1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.swiper-container .swiper-wrapper {
+    display: flex;
+    transition-timing-function: ease-in-out;
+    animation: slideOneByOne 10s linear infinite;
+}
+
+@keyframes slideOneByOne {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-25%); }
+    50% { transform: translateX(-50%); }
+    75% { transform: translateX(-75%); }
+    100% { transform: translateX(0); }
+}
+
+
+
+
+/* Card Styles */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 250px;
+    margin: 0;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.card h3 {
+    font-size: 1.4em;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+.card a {
+    text-decoration: none; /* Removes the underline from links */
+    color: inherit; /* Ensures the link inherits the color of its parent element */
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: #4CAF50;
+    display:none;
+}
+
+.swiper-pagination-bullet {
+    background: #4CAF50;
+}
+
+/* Call Now Button */
+.call-now-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    padding: 10px 16px;
+    border-radius: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.call-now-btn:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+.categories, .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+a.typewrite {
+    text-align: left; 
+    color:#141414; text-decoration: none;
+    font-size: 30px;
+    
+}
+  img {
+    border-radius: 50%;
+    border-image: linear-gradient(to right, #f06, #4a90e2) 1;
+  }
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+   margin: 0%;
+   width: 100%;
+   
+}
+iframe {
+    width: 100%;
+    height: 400px;
+    border: 0;
+    border-radius: 8px;
+}
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+.card .contact-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #4CAF50;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.call-now-btn1{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    padding: 10px 16px;
+    border-radius: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.call-now-btn1:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    .card {
+        width: 45%;
+    }
+
+    button {
+        font-size: 1em;
+    }
+}
+/* Basic reset & box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Section background styling */
+  .contact-section {
+    background-color: #05bf1b; /* Darker green for the background */
+    padding: 30px 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Centers the content and sets a max width */
+  .contact-container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 20px;
+  }
+  
+  /* Small label in the upper-left corner of the box */
+  .contact-label {
+    display: inline-block;
+    background-color: #037603; /* Bright yellow label */
+    color: #000;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -10px; /* Slight overlap with the box below */
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Main contact card/box */
+  .contact-box {
+    background-color: #d4dd8c; /* Lighter greenish/yellowish box */
+    border: 1px solid #ccc;
+    padding: 20px;
+    color: #000;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Name/title in the box */
+  .contact-box h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  /* Spacing for paragraphs */
+  .contact-box p {
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  
+  /* "Call Us" button style */
+  .call-button {
+    background-color: #ffd600; /* Matches the label color */
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content; /* Adjust width to content */
+  }
+  
+  .call-button i {
+    margin-right: 8px;
+  }
+  
+  /* Contact action buttons (Email, SMS) */
+  .contact-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .contact-actions button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .contact-actions button:hover {
+    background-color: #e6e6e6;
+  }
+  
+  /* Share section at the bottom */
+  .share-section {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .share-section span {
+    font-weight: bold;
+  }
+  
+  .share-section a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+  
+  .share-section a:hover {
+    color: #333;
+  }
