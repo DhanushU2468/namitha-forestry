@@ -1,0 +1,98 @@
+/* Plantation Form Styles - Scoped */
+.plantation-page-wrapper {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    min-height: 100vh;
+    background: var(--muted);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Centered Card Container */
+.plantation-contact-container {
+    background-color: var(--card);
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+/* Form Section */
+.contact-left {
+    width: 100%;
+}
+
+/* Title and Horizontal Rule */
+.contact-left-title h2 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    color: var(--foreground);
+    font-weight: 700;
+}
+
+.contact-left-title hr {
+    width: 50px;
+    margin: 1rem auto 2rem;
+    border: none;
+    height: 2px;
+    background-color: var(--accent);
+}
+
+/* Input Fields & Textarea */
+.contact-inputs {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    font-size: 16px;
+    padding: 0.5rem 0;
+    color: var(--foreground);
+    font-family: inherit;
+    background-color: transparent;
+    transition: border-bottom-color 0.2s ease;
+}
+
+.contact-inputs:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+}
+
+.contact-inputs::placeholder {
+    color: var(--muted-foreground);
+}
+
+/* Adjust textarea to match input style */
+textarea.contact-inputs {
+    resize: none;
+    height: 80px;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    color: var(--accent-foreground);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button[type="submit"]:hover {
+    background: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
