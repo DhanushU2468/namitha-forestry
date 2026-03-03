@@ -8,7 +8,7 @@ import React, { useEffect, useState, useRef } from 'react';
 ───────────────────────────────────────── */
 
 const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Jost:wght@200;300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap');
 
   :root {
     --ink:    #060d07;
@@ -26,7 +26,7 @@ const STYLES = `
 
   /* ── Root ── */
   .h-root {
-    font-family: 'Jost', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     min-height: 100svh;
     background: var(--ink);
     position: relative;
@@ -130,7 +130,7 @@ const STYLES = `
   .h-topbar-loc {
     font-size: 10px; font-weight: 400;
     letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(245,240,232,0.28);
+    color: rgba(245,240,232,0.5);
   }
   .h-topbar-right {
     display: flex; align-items: center; gap: 32px;
@@ -138,7 +138,7 @@ const STYLES = `
   .h-topbar-link {
     font-size: 10px; font-weight: 300;
     letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(245,240,232,0.22);
+    color: rgba(245,240,232,0.45);
     text-decoration: none;
     transition: color 0.25s ease;
     cursor: pointer; background: none; border: none;
@@ -171,7 +171,7 @@ const STYLES = `
   .h-index-label {
     font-size: 10px; font-weight: 400;
     letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(245,240,232,0.22);
+    color: rgba(245,240,232,0.45);
   }
 
   /* ── Hero headline ── */
@@ -221,9 +221,9 @@ const STYLES = `
     padding-top: 28px;
   }
   .h-body-text {
-    font-size: 13px; font-weight: 300; line-height: 1.9;
-    color: rgba(245,240,232,0.3);
-    max-width: 340px; letter-spacing: 0.02em;
+    font-size: 14px; font-weight: 400; line-height: 1.85;
+    color: rgba(245,240,232,0.65);
+    max-width: 340px; letter-spacing: 0.01em;
   }
   .h-actions {
     display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
@@ -235,7 +235,7 @@ const STYLES = `
     padding: 14px 34px;
     background: var(--gold);
     color: var(--ink);
-    font-family: 'Jost', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 10px; font-weight: 500;
     letter-spacing: 0.24em; text-transform: uppercase;
     text-decoration: none; border: none; cursor: pointer;
@@ -261,7 +261,7 @@ const STYLES = `
   .h-btn-ghost {
     font-size: 10px; font-weight: 300;
     letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(245,240,232,0.28);
+    color: rgba(245,240,232,0.5);
     text-decoration: none; cursor: pointer; background: none; border: none;
     position: relative; padding-bottom: 3px;
     transition: color 0.3s ease;
@@ -290,14 +290,14 @@ const STYLES = `
     align-self: stretch; min-height: 40px; opacity: 0.4;
   }
   .h-tw-label {
-    font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: rgba(245,240,232,0.18); margin-bottom: 8px; font-weight: 400;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(245,240,232,0.4); margin-bottom: 8px; font-weight: 400;
   }
   .h-tw-text {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(18px, 2.2vw, 26px);
     font-weight: 300; font-style: italic;
-    color: rgba(245,240,232,0.6);
+    color: rgba(245,240,232,0.85);
     min-height: 1.4em; line-height: 1.4; letter-spacing: 0.01em;
   }
   .h-cursor {
@@ -324,9 +324,9 @@ const STYLES = `
     color: var(--gold); line-height: 1; margin-bottom: 5px;
   }
   .h-stat-lbl {
-    font-size: 8px; font-weight: 300;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(245,240,232,0.18);
+    font-size: 8.5px; font-weight: 400;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
   }
 
   /* ── Marquee strip ── */
@@ -358,10 +358,10 @@ const STYLES = `
     font-family: 'Cormorant Garamond', serif;
     font-size: 13px; font-weight: 300; font-style: italic;
     letter-spacing: 0.06em;
-    color: rgba(245,240,232,0.22);
+    color: rgba(245,240,232,0.5);
     transition: color 0.3s ease;
   }
-  .h-marquee-track:hover .h-marquee-text { color: rgba(245,240,232,0.35); }
+  .h-marquee-track:hover .h-marquee-text { color: rgba(245,240,232,0.75); }
   .h-marquee-sep {
     width: 4px; height: 4px; border-radius: 50%;
     background: var(--gold); opacity: 0.3;
@@ -387,7 +387,7 @@ const STYLES = `
   }
   .h-scroll-txt {
     font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(245,240,232,0.18); writing-mode: vertical-rl;
+    color: rgba(245,240,232,0.4); writing-mode: vertical-rl;
   }
 
   /* ── Diagonal decorative line ── */
