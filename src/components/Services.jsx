@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { TreePine, LandPlot, Route, Spade } from 'lucide-react';
 
+const WHATSAPP = 'https://wa.me/9900897449?text=';
+
 const services = [
-  { icon: TreePine, title: 'Plantation', description: 'Professional plantation services crafted for your land and climate.', to: '/plantation', accent: '#4a7c59', label: '01' },
-  { icon: LandPlot, title: 'Real Estate', description: 'Enhance property value with curated botanical landscaping.', to: '/real-estate', accent: '#6b8f4e', label: '02' },
-  { icon: Route, title: 'Roadside', description: 'Eco-friendly greenery that beautifies every corridor.', to: '/roadside', accent: '#8a7d55', label: '03' },
-  { icon: Spade, title: 'Landscaping', description: 'Transform any space into a living, breathing masterpiece.', to: '/landscaping', accent: '#5c7a6b', label: '04' },
+  { icon: TreePine, title: 'Plantation', description: 'Professional plantation services crafted for your land and climate.', to: '/plantation', accent: '#4a7c59', label: '01', isRoute: true },
+  { icon: LandPlot, title: 'Real Estate', description: 'Enhance property value with curated botanical landscaping.', to: null, accent: '#6b8f4e', label: '02', isRoute: false, enquiry: 'Hello, I am interested in your Real Estate landscaping services.' },
+  { icon: Route, title: 'Roadside', description: 'Eco-friendly greenery that beautifies every corridor.', to: null, accent: '#8a7d55', label: '03', isRoute: false, enquiry: 'Hello, I am interested in your Roadside greening services.' },
+  { icon: Spade, title: 'Landscaping', description: 'Transform any space into a living, breathing masterpiece.', to: null, accent: '#5c7a6b', label: '04', isRoute: false, enquiry: 'Hello, I am interested in your Landscaping services.' },
 ];
 
 const Services = () => {
@@ -242,22 +244,44 @@ const Services = () => {
         </div>
 
         <div className="srv-grid">
-          {services.map(({ icon: Icon, title, description, to, accent, label }) => (
+          {services.map(({ icon: Icon, title, description, to, accent, label, isRoute, enquiry }) => (
             <div className="srv-card" key={title}>
-              <Link to={to} style={{ '--card-accent': accent }}>
-                <span className="srv-card-num">{label}</span>
-                <div className="srv-icon-wrap" style={{ background: `${accent}18` }}>
-                  <Icon size={24} color={accent} strokeWidth={1.5} />
-                </div>
-                <h3 className="srv-card-title">{title}</h3>
-                <p className="srv-card-desc">{description}</p>
-                <span className="srv-card-cta">
-                  Explore
-                  <svg className="srv-card-cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </Link>
+              {isRoute ? (
+                <Link to={to} style={{ '--card-accent': accent }}>
+                  <span className="srv-card-num">{label}</span>
+                  <div className="srv-icon-wrap" style={{ background: `${accent}18` }}>
+                    <Icon size={24} color={accent} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="srv-card-title">{title}</h3>
+                  <p className="srv-card-desc">{description}</p>
+                  <span className="srv-card-cta">
+                    Explore
+                    <svg className="srv-card-cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </Link>
+              ) : (
+                <a
+                  href={WHATSAPP + encodeURIComponent(enquiry)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ '--card-accent': accent }}
+                >
+                  <span className="srv-card-num">{label}</span>
+                  <div className="srv-icon-wrap" style={{ background: `${accent}18` }}>
+                    <Icon size={24} color={accent} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="srv-card-title">{title}</h3>
+                  <p className="srv-card-desc">{description}</p>
+                  <span className="srv-card-cta">
+                    Enquire
+                    <svg className="srv-card-cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </a>
+              )}
             </div>
           ))}
         </div>
