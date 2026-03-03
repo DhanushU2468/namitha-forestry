@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Send, User, Mail, MessageSquare, CheckCircle, Building2 } from 'lucide-react';
+import { ArrowLeft, Send, User, Mail, MessageSquare, CheckCircle } from 'lucide-react';
 
 const RealEstate = () => {
     const [submitted, setSubmitted] = useState(false);

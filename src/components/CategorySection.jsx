@@ -12,7 +12,7 @@ const ROTATE_MS = 3500; // auto-advance interval
 const GRID_LIMIT = 6;    // mini cards shown beside featured
 
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
   .cs-section {
     background: #f5f0e8;

@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { TreePine, LandPlot, Route, Spade } from 'lucide-react';
 
-const WHATSAPP = 'https://wa.me/9900897449?text=';
 
 const services = [
   { icon: TreePine, title: 'Plantation', description: 'Professional plantation services crafted for your land and climate.', to: '/plantation', accent: '#4a7c59', label: '01', isRoute: true },
