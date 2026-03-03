@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import SearchSection from '../components/SearchSection';
 import Services from '../components/Services';
 import CategorySection from '../components/CategorySection';
+import FeaturedSwiper from '../components/FeaturedSwiper';
 import ContactFooter from '../components/ContactFooter';
 import { Phone } from 'lucide-react';
 
@@ -19,6 +20,7 @@ const Home = () => {
             </a>
             <Services />
             <CategorySection />
+            <FeaturedSwiper />
             <ContactFooter />
         </div>
     );
