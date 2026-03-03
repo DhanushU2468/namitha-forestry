@@ -6,9 +6,9 @@ const WHATSAPP = 'https://wa.me/9900897449?text=';
 
 const services = [
   { icon: TreePine, title: 'Plantation', description: 'Professional plantation services crafted for your land and climate.', to: '/plantation', accent: '#4a7c59', label: '01', isRoute: true },
-  { icon: LandPlot, title: 'Real Estate', description: 'Enhance property value with curated botanical landscaping.', to: null, accent: '#6b8f4e', label: '02', isRoute: false, enquiry: 'Hello, I am interested in your Real Estate landscaping services.' },
-  { icon: Route, title: 'Roadside', description: 'Eco-friendly greenery that beautifies every corridor.', to: null, accent: '#8a7d55', label: '03', isRoute: false, enquiry: 'Hello, I am interested in your Roadside greening services.' },
-  { icon: Spade, title: 'Landscaping', description: 'Transform any space into a living, breathing masterpiece.', to: null, accent: '#5c7a6b', label: '04', isRoute: false, enquiry: 'Hello, I am interested in your Landscaping services.' },
+  { icon: LandPlot, title: 'Real Estate', description: 'Enhance property value with curated botanical landscaping.', to: '/real-estate', accent: '#6b8f4e', label: '02', isRoute: true },
+  { icon: Route, title: 'Roadside', description: 'Eco-friendly greenery that beautifies every corridor.', to: '/roadside', accent: '#8a7d55', label: '03', isRoute: true },
+  { icon: Spade, title: 'Landscaping', description: 'Transform any space into a living, breathing masterpiece.', to: '/landscaping', accent: '#5c7a6b', label: '04', isRoute: true },
 ];
 
 const Services = () => {
