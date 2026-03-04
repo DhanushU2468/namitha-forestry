@@ -9,15 +9,15 @@ import { plants } from '../data/plants';
 import { Trees, Flower, Apple, ArrowRight, X } from 'lucide-react';
 
 const CATEGORY_ICONS = {
-    'Forestry Plants': Trees,
-    'Aerial Flowering Plants': Flower,
-    'Fruit Plants': Apple,
+  'Forestry Plants': Trees,
+  'Aerial Flowering Plants': Flower,
+  'Fruit Plants': Apple,
 };
 
 const CATEGORY_ACCENTS = {
-    'Forestry Plants': '#4a7c59',
-    'Aerial Flowering Plants': '#8a5c6b',
-    'Fruit Plants': '#7a6b3a',
+  'Forestry Plants': '#4a7c59',
+  'Aerial Flowering Plants': '#8a5c6b',
+  'Fruit Plants': '#7a6b3a',
 };
 
 const CSS = `
@@ -140,7 +140,7 @@ const CSS = `
 
   .fs-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 24px 56px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(74,124,89,0.15);
   }
 
   .fs-card:hover .fs-card-img {
@@ -377,6 +377,14 @@ const CSS = `
     display: block;
   }
 
+  .fs-modal-img-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(249,245,238,0.6) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
   .fs-modal-close {
     position: absolute;
     top: 14px;
@@ -477,137 +485,137 @@ const CSS = `
 `;
 
 const FeaturedSwiper = () => {
-    const [selectedPlant, setSelectedPlant] = useState(null);
+  const [selectedPlant, setSelectedPlant] = useState(null);
 
-    // Use all plants
-    const allPlants = plants;
+  // Use all plants
+  const allPlants = plants;
 
-    React.useEffect(() => {
-        document.body.style.overflow = selectedPlant ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [selectedPlant]);
+  React.useEffect(() => {
+    document.body.style.overflow = selectedPlant ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedPlant]);
 
-    return (
-        <>
-            <style>{CSS}</style>
+  return (
+    <>
+      <style>{CSS}</style>
 
-            <section className="fs-section">
-                <div className="fs-bottom-fade" />
+      <section className="fs-section">
+        <div className="fs-bottom-fade" />
 
-                {/* Header */}
-                <div className="fs-header">
-                    <span className="fs-eyebrow">Our full collection</span>
-                    <h2 className="fs-title">
-                        Browse <em>all plants</em>
-                    </h2>
-                    <p className="fs-subtitle">
-                        Discover our complete range — from premium forestry trees to flowering beauties and fruiting wonders.
-                    </p>
-                    <div className="fs-divider" />
-                </div>
+        {/* Header */}
+        <div className="fs-header">
+          <span className="fs-eyebrow">Our full collection</span>
+          <h2 className="fs-title">
+            Browse <em>all plants</em>
+          </h2>
+          <p className="fs-subtitle">
+            Discover our complete range — from premium forestry trees to flowering beauties and fruiting wonders.
+          </p>
+          <div className="fs-divider" />
+        </div>
 
-                {/* Swiper */}
-                <div className="fs-swiper-wrap">
-                    <Swiper
-                        className="fs-swiper"
-                        modules={[Pagination, Navigation, Autoplay]}
-                        spaceBetween={20}
-                        slidesPerView={1}
-                        loop={allPlants.length > 4}
-                        autoplay={{ delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true }}
-                        pagination={{ clickable: true, dynamicBullets: true }}
-                        navigation
-                        breakpoints={{
-                            480: { slidesPerView: 2, spaceBetween: 16 },
-                            768: { slidesPerView: 3, spaceBetween: 18 },
-                            1100: { slidesPerView: 4, spaceBetween: 20 },
-                            1400: { slidesPerView: 5, spaceBetween: 20 },
-                        }}
-                    >
-                        {allPlants.map((plant, pi) => {
-                            const Icon = CATEGORY_ICONS[plant.category] || Trees;
-                            const accent = CATEGORY_ACCENTS[plant.category] || '#4a7c59';
-                            return (
-                                <SwiperSlide key={`fs-${plant.name}-${pi}`}>
-                                    <article
-                                        className="fs-card"
-                                        onClick={() => setSelectedPlant(plant)}
-                                    >
-                                        <div className="fs-card-img-wrap">
-                                            <img
-                                                className="fs-card-img"
-                                                src={plant.image}
-                                                alt={plant.name}
-                                                loading="lazy"
-                                                onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200/e8e3d8/9aab9d?text=Plant'; }}
-                                            />
-                                            <span className="fs-card-cat-badge">
-                                                <Icon size={10} strokeWidth={2} />
-                                                {plant.category.replace(' Plants', '').replace(' Flowering', '')}
-                                            </span>
-                                        </div>
-
-                                        <div className="fs-card-body">
-                                            <h4 className="fs-card-name">{plant.name}</h4>
-                                            {plant.info && (
-                                                <p className="fs-card-info">{plant.info}</p>
-                                            )}
-                                            <div className="fs-card-footer">
-                                                <span className="fs-card-price">{plant.price}</span>
-                                                <button
-                                                    className="fs-card-btn"
-                                                    style={{ color: accent, borderColor: accent }}
-                                                    aria-label={`View details for ${plant.name}`}
-                                                >
-                                                    Details
-                                                    <ArrowRight size={11} strokeWidth={2} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </SwiperSlide>
-                            );
-                        })}
-                    </Swiper>
-                </div>
-            </section>
-
-            {/* Modal */}
-            {selectedPlant && (
-                <div className="fs-modal-overlay" onClick={() => setSelectedPlant(null)}>
-                    <div className="fs-modal-box" onClick={(e) => e.stopPropagation()}>
-                        <button
-                            className="fs-modal-close"
-                            onClick={() => setSelectedPlant(null)}
-                            aria-label="Close"
-                        >
-                            <X size={16} strokeWidth={2} />
-                        </button>
-
-                        <img
-                            className="fs-modal-img"
-                            src={selectedPlant.image}
-                            alt={selectedPlant.name}
-                            onError={(e) => { e.target.src = 'https://via.placeholder.com/740x280/e8e3d8/9aab9d?text=Plant'; }}
-                        />
-
-                        <div className="fs-modal-body">
-                            <div className="fs-modal-meta">
-                                <div>
-                                    <h2 className="fs-modal-name">{selectedPlant.name}</h2>
-                                    <p className="fs-modal-cat">{selectedPlant.category}</p>
-                                </div>
-                                <span className="fs-modal-price">{selectedPlant.price}</span>
-                            </div>
-                            <p className="fs-modal-info">
-                                {selectedPlant.info || selectedPlant.description || 'Detailed information about this plant is currently unavailable. Please contact us for more details.'}
-                            </p>
-                        </div>
+        {/* Swiper */}
+        <div className="fs-swiper-wrap">
+          <Swiper
+            className="fs-swiper"
+            modules={[Pagination, Navigation, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            loop={allPlants.length > 4}
+            autoplay={{ delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            navigation
+            breakpoints={{
+              480: { slidesPerView: 2, spaceBetween: 16 },
+              768: { slidesPerView: 3, spaceBetween: 18 },
+              1100: { slidesPerView: 4, spaceBetween: 20 },
+              1400: { slidesPerView: 5, spaceBetween: 20 },
+            }}
+          >
+            {allPlants.map((plant, pi) => {
+              const Icon = CATEGORY_ICONS[plant.category] || Trees;
+              const accent = CATEGORY_ACCENTS[plant.category] || '#4a7c59';
+              return (
+                <SwiperSlide key={`fs-${plant.name}-${pi}`}>
+                  <article
+                    className="fs-card"
+                    onClick={() => setSelectedPlant(plant)}
+                  >
+                    <div className="fs-card-img-wrap">
+                      <img
+                        className="fs-card-img"
+                        src={plant.image}
+                        alt={plant.name}
+                        loading="lazy"
+                        onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200/e8e3d8/9aab9d?text=Plant'; }}
+                      />
+                      <span className="fs-card-cat-badge">
+                        <Icon size={10} strokeWidth={2} />
+                        {plant.category.replace(' Plants', '').replace(' Flowering', '')}
+                      </span>
                     </div>
+
+                    <div className="fs-card-body">
+                      <h4 className="fs-card-name">{plant.name}</h4>
+                      {plant.info && (
+                        <p className="fs-card-info">{plant.info}</p>
+                      )}
+                      <div className="fs-card-footer">
+                        <span className="fs-card-price">{plant.price}</span>
+                        <button
+                          className="fs-card-btn"
+                          style={{ color: accent, borderColor: accent }}
+                          aria-label={`View details for ${plant.name}`}
+                        >
+                          Details
+                          <ArrowRight size={11} strokeWidth={2} />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {selectedPlant && (
+        <div className="fs-modal-overlay" onClick={() => setSelectedPlant(null)}>
+          <div className="fs-modal-box" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="fs-modal-close"
+              onClick={() => setSelectedPlant(null)}
+              aria-label="Close"
+            >
+              <X size={16} strokeWidth={2} />
+            </button>
+
+            <img
+              className="fs-modal-img"
+              src={selectedPlant.image}
+              alt={selectedPlant.name}
+              onError={(e) => { e.target.src = 'https://via.placeholder.com/740x280/e8e3d8/9aab9d?text=Plant'; }}
+            />
+
+            <div className="fs-modal-body">
+              <div className="fs-modal-meta">
+                <div>
+                  <h2 className="fs-modal-name">{selectedPlant.name}</h2>
+                  <p className="fs-modal-cat">{selectedPlant.category}</p>
                 </div>
-            )}
-        </>
-    );
+                <span className="fs-modal-price">{selectedPlant.price}</span>
+              </div>
+              <p className="fs-modal-info">
+                {selectedPlant.info || selectedPlant.description || 'Detailed information about this plant is currently unavailable. Please contact us for more details.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default FeaturedSwiper;

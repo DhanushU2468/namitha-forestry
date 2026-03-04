@@ -148,14 +148,20 @@ const Services = () => {
 
         .srv-card a:hover {
           transform: translateY(-6px);
-          box-shadow: 0 20px 48px rgba(28,43,30,0.1), 0 4px 12px rgba(28,43,30,0.06);
+          box-shadow: 0 20px 48px rgba(28,43,30,0.1), 0 4px 12px rgba(28,43,30,0.06), 0 0 0 1px var(--card-accent), 0 8px 24px color-mix(in srgb, var(--card-accent) 15%, transparent);
           border-color: rgba(74,124,89,0.25);
         }
 
         .srv-card a:hover::before { transform: scaleX(1); }
 
+        .srv-card a:focus-within {
+          border-color: rgba(74,124,89,0.3);
+          box-shadow: 0 0 0 3px rgba(74,124,89,0.15);
+        }
+
         .srv-card a:hover .srv-icon-wrap {
-          transform: scale(1.1) rotate(-4deg);
+          transform: scale(1.1) translateY(-3px);
+          box-shadow: 0 6px 16px color-mix(in srgb, var(--card-accent) 20%, transparent);
         }
 
         .srv-card-num {
@@ -227,6 +233,74 @@ const Services = () => {
 
         .srv-card a:hover .srv-card-cta-arrow {
           transform: translateX(3px);
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 600px) {
+          .srv-section {
+            padding: 64px 16px 56px;
+          }
+
+          .srv-header {
+            margin-bottom: 40px;
+          }
+
+          .srv-title {
+            font-size: 2.2rem;
+          }
+
+          .srv-subtitle {
+            font-size: 0.88rem;
+          }
+
+          /* 2-column compact grid */
+          .srv-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+          }
+
+          /* Compact card internals */
+          .srv-card a {
+            padding: 20px 16px 18px;
+            border-radius: 6px;
+          }
+
+          .srv-card-num {
+            font-size: 0.72rem;
+            margin-bottom: 12px;
+          }
+
+          .srv-icon-wrap {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 14px;
+          }
+
+          .srv-card-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+          }
+
+          .srv-card-desc {
+            font-size: 0.78rem;
+            line-height: 1.55;
+            margin-bottom: 16px;
+            /* clamp desc to 3 lines to keep cards tight */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .srv-card-cta {
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+          }
+
+          .srv-card-cta-arrow {
+            width: 11px;
+            height: 11px;
+          }
         }
       `}</style>
 

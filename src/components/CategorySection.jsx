@@ -127,7 +127,7 @@ const CSS = `
 
   /* image crossfade wrapper */
   .cs-feat-img-wrap {
-    position: relative; height: 320px; overflow: hidden;
+    position: relative; height: 360px; overflow: hidden;
     background: #e4e0d6; flex-shrink: 0;
   }
   /* each image is absolute, we fade between them */
@@ -291,7 +291,16 @@ const CSS = `
     box-shadow: 0 0 0 2px var(--card-accent-ring), 0 8px 24px rgba(28,43,30,0.08);
   }
 
-  .cs-mcard-img-wrap { position: relative; height: 140px; overflow: hidden; background: #e4e0d6; flex-shrink: 0; }
+  .cs-mcard-img-wrap {
+    position: relative; height: 140px; overflow: hidden; flex-shrink: 0;
+    background: linear-gradient(110deg, #e4e0d6 8%, #ede9e0 18%, #e4e0d6 33%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
   .cs-mcard-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s cubic-bezier(0.22,1,0.36,1); }
   .cs-mcard-body { padding: 14px 14px 12px; flex: 1; display: flex; flex-direction: column; }
   .cs-mcard-name {
@@ -425,7 +434,7 @@ const CSS = `
   @media (max-width: 1024px) {
     .cs-layout { grid-template-columns: 1fr; }
     .cs-featured { grid-row: auto; }
-    .cs-feat-img-wrap { height: 260px; }
+    .cs-feat-img-wrap { height: 280px; }
     .cs-grid { grid-column: 1; grid-row: auto; grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 768px) {

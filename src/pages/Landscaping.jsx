@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Send, User, Mail, MessageSquare, CheckCircle } from 'lucide-react';
 
 const Landscaping = () => {
-    const [submitted, setSubmitted] = useState(false);
-    const [focused, setFocused] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
-        if (res.ok) setSubmitted(true);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+    if (res.ok) setSubmitted(true);
+  };
 
-    const ACCENT = '#5c7a6b';
+  const ACCENT = '#5c7a6b';
 
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
         .ls-wrapper {
@@ -50,6 +50,11 @@ const Landscaping = () => {
           border-radius: 4px; border: 1px solid rgba(92,122,107,0.12);
           box-shadow: 0 24px 56px rgba(28,43,30,0.08), 0 4px 14px rgba(28,43,30,0.05);
           position: relative; z-index: 1; overflow: hidden;
+          animation: lsCardEnter 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+        }
+        @keyframes lsCardEnter {
+          from { opacity: 0; transform: translateY(24px) scale(0.98); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         .ls-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -89,7 +94,7 @@ const Landscaping = () => {
           transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
         .ls-input::placeholder { color: #9aab9d; font-weight: 300; }
-        .ls-input:focus { background: #fff; border-color: ${ACCENT}; box-shadow: 0 0 0 3px rgba(92,122,107,0.1); }
+        .ls-input:focus { background: #fff; border-color: ${ACCENT}; box-shadow: 0 0 0 3px rgba(92,122,107,0.1), 0 2px 8px rgba(92,122,107,0.08); }
         textarea.ls-input { padding-top: 14px; resize: vertical; min-height: 120px; line-height: 1.65; }
         .ls-submit {
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
@@ -108,6 +113,12 @@ const Landscaping = () => {
           width: 60px; height: 60px; border-radius: 50%;
           background: rgba(92,122,107,0.1); display: flex; align-items: center;
           justify-content: center; color: ${ACCENT}; margin-bottom: 6px;
+          animation: lsCheckPop 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+        }
+        @keyframes lsCheckPop {
+          from { transform: scale(0.5); opacity: 0; }
+          50%  { transform: scale(1.15); }
+          to   { transform: scale(1); opacity: 1; }
         }
         .ls-success-title {
           font-family: 'Cormorant Garamond', serif; font-size: 2rem;
@@ -133,64 +144,64 @@ const Landscaping = () => {
         }
       `}</style>
 
-            <div className="ls-wrapper">
-                {!submitted && (
-                    <Link to="/" className="ls-back">
-                        <ArrowLeft size={13} strokeWidth={2} />
-                        Back to home
-                    </Link>
-                )}
-                <div className="ls-card">
-                    {submitted ? (
-                        <div className="ls-success">
-                            <div className="ls-success-icon"><CheckCircle size={28} strokeWidth={1.5} /></div>
-                            <h2 className="ls-success-title">We'll be in touch</h2>
-                            <p className="ls-success-text">
-                                Thank you for reaching out. Our landscaping team will craft a customised design plan for your space shortly.
-                            </p>
-                            <Link to="/" className="ls-success-back">
-                                <ArrowLeft size={13} strokeWidth={2} /> Return home
-                            </Link>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="ls-header">
-                                <span className="ls-eyebrow">Landscaping services</span>
-                                <h2 className="ls-title">Transform your<br /><em>space</em></h2>
-                                <p className="ls-subtitle">
-                                    Living, breathing masterpieces — from residential gardens to commercial landscapes.
-                                </p>
-                                <div className="ls-divider" />
-                            </div>
-                            <form className="ls-form" onSubmit={handleSubmit}>
-                                <input type="hidden" name="access_key" value="4193fb93-a6ed-4fbc-81b2-24bc1ddc3765" />
-                                <input type="hidden" name="subject" value="Landscaping Enquiry" />
-                                <div className={'ls-field' + (focused === 'name' ? ' ls-focused' : '')}>
-                                    <User size={15} className="ls-field-icon" strokeWidth={1.5} />
-                                    <input type="text" name="name" placeholder="Your name" className="ls-input" required
-                                        onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <div className={'ls-field' + (focused === 'contact' ? ' ls-focused' : '')}>
-                                    <Mail size={15} className="ls-field-icon" strokeWidth={1.5} />
-                                    <input type="text" name="contact" placeholder="Email or phone" className="ls-input" required
-                                        onFocus={() => setFocused('contact')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <div className={'ls-field' + (focused === 'message' ? ' ls-focused' : '')}>
-                                    <MessageSquare size={15} className="ls-field-icon ls-field-icon--textarea" strokeWidth={1.5} />
-                                    <textarea name="message" placeholder="Describe your space, area size, and landscaping vision…"
-                                        className="ls-input" required
-                                        onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <button type="submit" className="ls-submit">
-                                    <Send size={13} strokeWidth={2} /> Get your custom quote
-                                </button>
-                            </form>
-                        </>
-                    )}
-                </div>
+      <div className="ls-wrapper">
+        {!submitted && (
+          <Link to="/" className="ls-back">
+            <ArrowLeft size={13} strokeWidth={2} />
+            Back to home
+          </Link>
+        )}
+        <div className="ls-card">
+          {submitted ? (
+            <div className="ls-success">
+              <div className="ls-success-icon"><CheckCircle size={28} strokeWidth={1.5} /></div>
+              <h2 className="ls-success-title">We'll be in touch</h2>
+              <p className="ls-success-text">
+                Thank you for reaching out. Our landscaping team will craft a customised design plan for your space shortly.
+              </p>
+              <Link to="/" className="ls-success-back">
+                <ArrowLeft size={13} strokeWidth={2} /> Return home
+              </Link>
             </div>
-        </>
-    );
+          ) : (
+            <>
+              <div className="ls-header">
+                <span className="ls-eyebrow">Landscaping services</span>
+                <h2 className="ls-title">Transform your<br /><em>space</em></h2>
+                <p className="ls-subtitle">
+                  Living, breathing masterpieces — from residential gardens to commercial landscapes.
+                </p>
+                <div className="ls-divider" />
+              </div>
+              <form className="ls-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="access_key" value="4193fb93-a6ed-4fbc-81b2-24bc1ddc3765" />
+                <input type="hidden" name="subject" value="Landscaping Enquiry" />
+                <div className={'ls-field' + (focused === 'name' ? ' ls-focused' : '')}>
+                  <User size={15} className="ls-field-icon" strokeWidth={1.5} />
+                  <input type="text" name="name" placeholder="Your name" className="ls-input" required
+                    onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
+                </div>
+                <div className={'ls-field' + (focused === 'contact' ? ' ls-focused' : '')}>
+                  <Mail size={15} className="ls-field-icon" strokeWidth={1.5} />
+                  <input type="text" name="contact" placeholder="Email or phone" className="ls-input" required
+                    onFocus={() => setFocused('contact')} onBlur={() => setFocused(null)} />
+                </div>
+                <div className={'ls-field' + (focused === 'message' ? ' ls-focused' : '')}>
+                  <MessageSquare size={15} className="ls-field-icon ls-field-icon--textarea" strokeWidth={1.5} />
+                  <textarea name="message" placeholder="Describe your space, area size, and landscaping vision…"
+                    className="ls-input" required
+                    onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
+                </div>
+                <button type="submit" className="ls-submit">
+                  <Send size={13} strokeWidth={2} /> Get your custom quote
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Landscaping;

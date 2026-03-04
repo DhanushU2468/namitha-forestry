@@ -2,42 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-    { label: 'Home', href: '#home' },
-    { label: 'Services', href: '#services' },
-    { label: 'Categories', href: '#categories' },
-    { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '#home' },
+  { label: 'Services', href: '#services' },
+  { label: 'Categories', href: '#categories' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [activeLink, setActiveLink] = useState('#home');
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('#home');
 
-    /* Shrink nav on scroll */
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 40);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+  /* Shrink nav on scroll */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    /* Close menu on resize to desktop */
-    useEffect(() => {
-        const onResize = () => { if (window.innerWidth > 768) setIsOpen(false); };
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-    }, []);
+  /* Close menu on resize to desktop */
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 768) setIsOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
-    const handleScroll = (e, href) => {
-        e.preventDefault();
-        setIsOpen(false);
-        setActiveLink(href);
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-    };
+  const handleScroll = (e, href) => {
+    e.preventDefault();
+    setIsOpen(false);
+    setActiveLink(href);
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         .nb-nav {
           position: sticky;
           top: 0;
@@ -45,15 +45,36 @@ const Navbar = () => {
           font-family: 'Plus Jakarta Sans', sans-serif;
           transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
           background: rgba(245,240,232,0.82);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: saturate(120%) blur(16px);
+          -webkit-backdrop-filter: saturate(120%) blur(16px);
           border-bottom: 1px solid rgba(74,124,89,0.1);
         }
 
         .nb-nav.nb-scrolled {
-          background: rgba(245,240,232,0.95);
+          background: rgba(245,240,232,0.96);
           box-shadow: 0 4px 24px rgba(28,43,30,0.07);
           border-bottom-color: rgba(74,124,89,0.16);
+          backdrop-filter: saturate(180%) blur(20px);
+          -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+
+        /* Animated gradient accent line on scroll */
+        .nb-nav::after {
+          content: '';
+          position: absolute;
+          bottom: -1px; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent 0%, #4a7c59 20%, #7ab88f 50%, #4a7c59 80%, transparent 100%);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          background-size: 200% 100%;
+          animation: gradientShift 3s ease infinite;
+        }
+        .nb-nav.nb-scrolled::after { opacity: 1; }
+        @keyframes gradientShift {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         .nb-inner {
@@ -140,7 +161,11 @@ const Navbar = () => {
         .nb-link:hover,
         .nb-link.nb-active {
           color: #4a7c59;
-          background: rgba(74,124,89,0.07);
+          background: rgba(74,124,89,0.08);
+        }
+
+        .nb-link.nb-active {
+          font-weight: 500;
         }
 
         .nb-link:hover::after,
@@ -178,7 +203,8 @@ const Navbar = () => {
             left: 0;
             width: 100%;
             background: rgba(245,240,232,0.98);
-            backdrop-filter: blur(16px);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
             padding: 16px 0 20px;
             border-bottom: 1px solid rgba(74,124,89,0.14);
             box-shadow: 0 12px 32px rgba(28,43,30,0.1);
@@ -196,6 +222,18 @@ const Navbar = () => {
             pointer-events: all;
           }
 
+          .nb-links.nb-open .nb-link {
+            animation: mobileNavIn 0.35s cubic-bezier(0.22,1,0.36,1) both;
+          }
+          .nb-links.nb-open .nb-link:nth-child(1) { animation-delay: 0.05s; }
+          .nb-links.nb-open .nb-link:nth-child(2) { animation-delay: 0.1s; }
+          .nb-links.nb-open .nb-link:nth-child(3) { animation-delay: 0.15s; }
+          .nb-links.nb-open .nb-link:nth-child(4) { animation-delay: 0.2s; }
+          @keyframes mobileNavIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+
           .nb-link {
             width: calc(100% - 32px);
             margin: 0 16px;
@@ -209,44 +247,44 @@ const Navbar = () => {
         }
       `}</style>
 
-            <nav className={'nb-nav' + (scrolled ? ' nb-scrolled' : '')}>
-                <div className="nb-inner">
+      <nav className={'nb-nav' + (scrolled ? ' nb-scrolled' : '')}>
+        <div className="nb-inner">
 
-                    <div className="nb-logo">
-                        <a href="#home" onClick={(e) => handleScroll(e, '#home')}>
-                            <img className="nb-logo-img" src="/Logo.png" alt="Namitha Forestry" />
-                            <span className="nb-logo-text">
-                                Namitha <em>Forestry</em>
-                            </span>
-                        </a>
-                    </div>
+          <div className="nb-logo">
+            <a href="#home" onClick={(e) => handleScroll(e, '#home')}>
+              <img className="nb-logo-img" src="/Logo.png" alt="Namitha Forestry" />
+              <span className="nb-logo-text">
+                Namitha <em>Forestry</em>
+              </span>
+            </a>
+          </div>
 
-                    <button
-                        className="nb-toggle"
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                        aria-expanded={isOpen}
-                    >
-                        {isOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
-                    </button>
+          <button
+            className="nb-toggle"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+          </button>
 
-                    <div className={'nb-links' + (isOpen ? ' nb-open' : '')}>
-                        {NAV_LINKS.map(({ label, href }) => (
-                            <a
-                                key={href}
-                                href={href}
-                                className={'nb-link' + (activeLink === href ? ' nb-active' : '')}
-                                onClick={(e) => handleScroll(e, href)}
-                            >
-                                {label}
-                            </a>
-                        ))}
-                    </div>
+          <div className={'nb-links' + (isOpen ? ' nb-open' : '')}>
+            {NAV_LINKS.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                className={'nb-link' + (activeLink === href ? ' nb-active' : '')}
+                onClick={(e) => handleScroll(e, href)}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
 
-                </div>
-            </nav >
-        </>
-    );
+        </div>
+      </nav >
+    </>
+  );
 };
 
 export default Navbar;

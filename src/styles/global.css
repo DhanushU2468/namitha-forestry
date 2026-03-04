@@ -90,6 +90,8 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green-300) var(--cream-50);
 }
 
 body {
@@ -102,6 +104,30 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    animation: pageEnter 0.6s ease both;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Selection ── */
+::selection {
+    background: rgba(74, 124, 89, 0.2);
+    color: var(--green-900);
+}
+
+/* ── Focus-visible (keyboard nav) ── */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 /* ── Scrollbar ── */
@@ -521,6 +547,41 @@ section h2 {
     gap: var(--space-sm);
     transition: background 0.3s ease, transform 0.3s var(--ease-out), box-shadow 0.3s ease;
     border: 1px solid rgba(122, 184, 143, 0.3);
+    animation: fabEnter 0.6s var(--ease-out) 1.5s both;
+}
+
+.call-now-btn::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--green-600);
+    opacity: 0;
+    animation: fabPulse 2.5s ease-in-out infinite 2.5s;
+}
+
+@keyframes fabPulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.25);
+    }
+}
+
+@keyframes fabEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .call-now-btn:hover {

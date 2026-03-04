@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Send, User, Mail, MessageSquare, CheckCircle } from 'lucide-react';
 
 const Roadside = () => {
-    const [submitted, setSubmitted] = useState(false);
-    const [focused, setFocused] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
-        if (res.ok) setSubmitted(true);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+    if (res.ok) setSubmitted(true);
+  };
 
-    const ACCENT = '#8a7d55';
+  const ACCENT = '#8a7d55';
 
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
         .rd-wrapper {
@@ -50,6 +50,11 @@ const Roadside = () => {
           border-radius: 4px; border: 1px solid rgba(138,125,85,0.12);
           box-shadow: 0 24px 56px rgba(28,43,30,0.08), 0 4px 14px rgba(28,43,30,0.05);
           position: relative; z-index: 1; overflow: hidden;
+          animation: rdCardEnter 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+        }
+        @keyframes rdCardEnter {
+          from { opacity: 0; transform: translateY(24px) scale(0.98); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         .rd-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -89,7 +94,7 @@ const Roadside = () => {
           transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
         }
         .rd-input::placeholder { color: #9aab9d; font-weight: 300; }
-        .rd-input:focus { background: #fff; border-color: ${ACCENT}; box-shadow: 0 0 0 3px rgba(138,125,85,0.1); }
+        .rd-input:focus { background: #fff; border-color: ${ACCENT}; box-shadow: 0 0 0 3px rgba(138,125,85,0.1), 0 2px 8px rgba(138,125,85,0.08); }
         textarea.rd-input { padding-top: 14px; resize: vertical; min-height: 120px; line-height: 1.65; }
         .rd-submit {
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
@@ -108,6 +113,12 @@ const Roadside = () => {
           width: 60px; height: 60px; border-radius: 50%;
           background: rgba(138,125,85,0.1); display: flex; align-items: center;
           justify-content: center; color: ${ACCENT}; margin-bottom: 6px;
+          animation: rdCheckPop 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+        }
+        @keyframes rdCheckPop {
+          from { transform: scale(0.5); opacity: 0; }
+          50%  { transform: scale(1.15); }
+          to   { transform: scale(1); opacity: 1; }
         }
         .rd-success-title {
           font-family: 'Cormorant Garamond', serif; font-size: 2rem;
@@ -133,64 +144,64 @@ const Roadside = () => {
         }
       `}</style>
 
-            <div className="rd-wrapper">
-                {!submitted && (
-                    <Link to="/" className="rd-back">
-                        <ArrowLeft size={13} strokeWidth={2} />
-                        Back to home
-                    </Link>
-                )}
-                <div className="rd-card">
-                    {submitted ? (
-                        <div className="rd-success">
-                            <div className="rd-success-icon"><CheckCircle size={28} strokeWidth={1.5} /></div>
-                            <h2 className="rd-success-title">We'll be in touch</h2>
-                            <p className="rd-success-text">
-                                Thank you for reaching out. Our roadside greening team will get back to you with a tailored plan shortly.
-                            </p>
-                            <Link to="/" className="rd-success-back">
-                                <ArrowLeft size={13} strokeWidth={2} /> Return home
-                            </Link>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="rd-header">
-                                <span className="rd-eyebrow">Roadside greening</span>
-                                <h2 className="rd-title">Beautify every<br /><em>corridor</em></h2>
-                                <p className="rd-subtitle">
-                                    Eco-friendly greenery solutions for highways, streets, and public corridors.
-                                </p>
-                                <div className="rd-divider" />
-                            </div>
-                            <form className="rd-form" onSubmit={handleSubmit}>
-                                <input type="hidden" name="access_key" value="4193fb93-a6ed-4fbc-81b2-24bc1ddc3765" />
-                                <input type="hidden" name="subject" value="Roadside Greening Enquiry" />
-                                <div className={'rd-field' + (focused === 'name' ? ' rd-focused' : '')}>
-                                    <User size={15} className="rd-field-icon" strokeWidth={1.5} />
-                                    <input type="text" name="name" placeholder="Your name" className="rd-input" required
-                                        onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <div className={'rd-field' + (focused === 'contact' ? ' rd-focused' : '')}>
-                                    <Mail size={15} className="rd-field-icon" strokeWidth={1.5} />
-                                    <input type="text" name="contact" placeholder="Email or phone" className="rd-input" required
-                                        onFocus={() => setFocused('contact')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <div className={'rd-field' + (focused === 'message' ? ' rd-focused' : '')}>
-                                    <MessageSquare size={15} className="rd-field-icon rd-field-icon--textarea" strokeWidth={1.5} />
-                                    <textarea name="message" placeholder="Describe the road stretch, length, and your greening requirements…"
-                                        className="rd-input" required
-                                        onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
-                                </div>
-                                <button type="submit" className="rd-submit">
-                                    <Send size={13} strokeWidth={2} /> Get your custom quote
-                                </button>
-                            </form>
-                        </>
-                    )}
-                </div>
+      <div className="rd-wrapper">
+        {!submitted && (
+          <Link to="/" className="rd-back">
+            <ArrowLeft size={13} strokeWidth={2} />
+            Back to home
+          </Link>
+        )}
+        <div className="rd-card">
+          {submitted ? (
+            <div className="rd-success">
+              <div className="rd-success-icon"><CheckCircle size={28} strokeWidth={1.5} /></div>
+              <h2 className="rd-success-title">We'll be in touch</h2>
+              <p className="rd-success-text">
+                Thank you for reaching out. Our roadside greening team will get back to you with a tailored plan shortly.
+              </p>
+              <Link to="/" className="rd-success-back">
+                <ArrowLeft size={13} strokeWidth={2} /> Return home
+              </Link>
             </div>
-        </>
-    );
+          ) : (
+            <>
+              <div className="rd-header">
+                <span className="rd-eyebrow">Roadside greening</span>
+                <h2 className="rd-title">Beautify every<br /><em>corridor</em></h2>
+                <p className="rd-subtitle">
+                  Eco-friendly greenery solutions for highways, streets, and public corridors.
+                </p>
+                <div className="rd-divider" />
+              </div>
+              <form className="rd-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="access_key" value="4193fb93-a6ed-4fbc-81b2-24bc1ddc3765" />
+                <input type="hidden" name="subject" value="Roadside Greening Enquiry" />
+                <div className={'rd-field' + (focused === 'name' ? ' rd-focused' : '')}>
+                  <User size={15} className="rd-field-icon" strokeWidth={1.5} />
+                  <input type="text" name="name" placeholder="Your name" className="rd-input" required
+                    onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
+                </div>
+                <div className={'rd-field' + (focused === 'contact' ? ' rd-focused' : '')}>
+                  <Mail size={15} className="rd-field-icon" strokeWidth={1.5} />
+                  <input type="text" name="contact" placeholder="Email or phone" className="rd-input" required
+                    onFocus={() => setFocused('contact')} onBlur={() => setFocused(null)} />
+                </div>
+                <div className={'rd-field' + (focused === 'message' ? ' rd-focused' : '')}>
+                  <MessageSquare size={15} className="rd-field-icon rd-field-icon--textarea" strokeWidth={1.5} />
+                  <textarea name="message" placeholder="Describe the road stretch, length, and your greening requirements…"
+                    className="rd-input" required
+                    onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
+                </div>
+                <button type="submit" className="rd-submit">
+                  <Send size={13} strokeWidth={2} /> Get your custom quote
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Roadside;
