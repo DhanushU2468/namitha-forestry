@@ -158,7 +158,8 @@ const CSS = `
     gap: 14px;
     padding: 16px 20px;
     background: var(--cream);
-    transition: background 0.2s ease;
+    transition: background 0.25s ease, padding-left 0.35s cubic-bezier(0.34,1.56,0.64,1), border-left 0.25s ease;
+    border-left: 3px solid transparent;
   }
 
   .cf-info-item + .cf-info-item {
@@ -167,6 +168,8 @@ const CSS = `
 
   .cf-info-item:hover {
     background: rgba(28,58,24,0.06);
+    padding-left: 26px;
+    border-left-color: var(--terra);
   }
 
   .cf-info-dot {
@@ -175,6 +178,12 @@ const CSS = `
     border-radius: 50%;
     background: var(--terra);
     flex-shrink: 0;
+    animation: cfDotPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes cfDotPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(28,58,24,0); }
+    50%     { box-shadow: 0 0 8px 3px rgba(28,58,24,0.15); }
   }
 
   .cf-info-label {
@@ -220,19 +229,34 @@ const CSS = `
     color: var(--terra);
     background: transparent;
     text-decoration: none;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
 
   .cf-social:hover {
     background: var(--terra);
     border-color: var(--terra);
     color: #fff;
-    transform: translateY(-3px);
+    transform: translateY(-3px) rotate(360deg);
+  }
+
+  .cf-social:active {
+    transform: translateY(0) scale(0.9);
+    transition-duration: 0.08s;
+  }
+
+  /* Social stagger animation */
+  .cf-socials .cf-social:nth-child(1) { animation: cfSocialIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.3s both; }
+  .cf-socials .cf-social:nth-child(2) { animation: cfSocialIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.4s both; }
+  .cf-socials .cf-social:nth-child(3) { animation: cfSocialIn 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.5s both; }
+
+  @keyframes cfSocialIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.7); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   /* ── Right column: action panel ── */
   .cf-right {
-    background: var(--earth);
+    background: var(--terra);
     border-radius: 3px;
     padding: 40px 36px;
     position: relative;
@@ -280,7 +304,7 @@ const CSS = `
     text-decoration: none;
     border-radius: 2px;
     margin-bottom: 12px;
-    transition: background 0.25s ease, transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+    transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -289,8 +313,27 @@ const CSS = `
 
   .cf-call:hover {
     background: var(--terra-deep);
-    transform: translateX(4px);
+    transform: translateX(6px);
     box-shadow: 6px 6px 0px rgba(200,132,46,0.3);
+  }
+
+  .cf-call:active {
+    transform: translateX(2px) scale(0.98);
+    transition-duration: 0.08s;
+  }
+
+  /* Shake animation on call icon */
+  .cf-call:hover .cf-call-icon {
+    animation: cfPhoneShake 0.5s ease-in-out;
+  }
+
+  @keyframes cfPhoneShake {
+    0%,100% { transform: rotate(0); }
+    15%     { transform: rotate(12deg); }
+    30%     { transform: rotate(-10deg); }
+    45%     { transform: rotate(8deg); }
+    60%     { transform: rotate(-6deg); }
+    75%     { transform: rotate(3deg); }
   }
 
   .cf-call-icon {
@@ -340,7 +383,7 @@ const CSS = `
     font-size: 0.88rem;
     font-weight: 500;
     border: 1px solid rgba(77,216,130,0.2);
-    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
@@ -348,9 +391,14 @@ const CSS = `
 
   .cf-whatsapp:hover {
     background: #1F4A33;
-    transform: translateX(4px);
-    box-shadow: 6px 6px 0px rgba(77,216,130,0.15);
+    transform: translateX(6px);
+    box-shadow: 6px 6px 0px rgba(77,216,130,0.15), 0 0 18px rgba(77,216,130,0.15);
     color: #6FE89A;
+  }
+
+  .cf-whatsapp:active {
+    transform: translateX(2px) scale(0.98);
+    transition-duration: 0.08s;
   }
 
   /* Divider */
@@ -367,7 +415,7 @@ const CSS = `
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: var(--earth);
+    background: var(--terra);
     padding: 0 12px;
     font-size: 0.7rem;
     color: rgba(250,243,231,0.3);
@@ -397,7 +445,7 @@ const CSS = `
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
   }
 
   .cf-panel-btn:hover {
@@ -406,25 +454,38 @@ const CSS = `
     color: var(--gold-light);
   }
 
+  .cf-panel-btn:active {
+    transform: scale(0.93);
+    transition-duration: 0.08s;
+  }
+
   /* ── Entrance animations ── */
   .cf-fade {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* Left column slides from left */
+  .cf-left.cf-fade {
+    transform: translateX(-30px);
+  }
+
+  /* Right column slides from right */
+  .cf-right.cf-fade {
+    transform: translateX(30px);
   }
 
   .cf-fade.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   .cf-fade:nth-child(1) { transition-delay: 0s; }
-  .cf-fade:nth-child(2) { transition-delay: 0.12s; }
-  .cf-fade:nth-child(3) { transition-delay: 0.22s; }
+  .cf-fade:nth-child(2) { transition-delay: 0.15s; }
 
   /* ── Footer bar ── */
   .cf-footer {
-    background: var(--earth);
+    background: var(--terra);
     padding: 18px 48px;
     display: flex;
     align-items: center;

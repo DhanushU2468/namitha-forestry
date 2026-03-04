@@ -105,14 +105,14 @@ const Services = () => {
 
         .srv-card {
           opacity: 0;
-          transform: translateY(32px);
-          transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+          transform: translateY(40px) scale(0.96);
+          transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
         }
 
-        .srv-card:nth-child(1) { transition-delay: 0s; }
-        .srv-card:nth-child(2) { transition-delay: 0.1s; }
-        .srv-card:nth-child(3) { transition-delay: 0.2s; }
-        .srv-card:nth-child(4) { transition-delay: 0.3s; }
+        .srv-card:nth-child(1) { transition-delay: 0.0s; }
+        .srv-card:nth-child(2) { transition-delay: 0.12s; }
+        .srv-card:nth-child(3) { transition-delay: 0.24s; }
+        .srv-card:nth-child(4) { transition-delay: 0.36s; }
 
         .srv-card--visible {
           opacity: 1;
@@ -130,7 +130,7 @@ const Services = () => {
           color: inherit;
           position: relative;
           overflow: hidden;
-          transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.35s ease;
+          transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.35s ease;
           height: 100%;
           box-sizing: border-box;
         }
@@ -142,8 +142,8 @@ const Services = () => {
           height: 3px;
           background: var(--card-accent);
           transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+          transform-origin: center;
+          transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .srv-card a:hover {
@@ -154,14 +154,34 @@ const Services = () => {
 
         .srv-card a:hover::before { transform: scaleX(1); }
 
+        .srv-card a:active {
+          transform: translateY(-2px) scale(0.98);
+          transition-duration: 0.1s;
+        }
+
         .srv-card a:focus-within {
           border-color: rgba(74,124,89,0.3);
           box-shadow: 0 0 0 3px rgba(74,124,89,0.15);
         }
 
         .srv-card a:hover .srv-icon-wrap {
-          transform: scale(1.1) translateY(-3px);
+          transform: scale(1.12) translateY(-3px) rotate(5deg);
           box-shadow: 0 6px 16px color-mix(in srgb, var(--card-accent) 20%, transparent);
+        }
+
+        /* Icon bounce-in when card becomes visible */
+        .srv-card--visible .srv-icon-wrap {
+          animation: srvIconBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .srv-card--visible:nth-child(1) .srv-icon-wrap { animation-delay: 0.15s; }
+        .srv-card--visible:nth-child(2) .srv-icon-wrap { animation-delay: 0.27s; }
+        .srv-card--visible:nth-child(3) .srv-icon-wrap { animation-delay: 0.39s; }
+        .srv-card--visible:nth-child(4) .srv-icon-wrap { animation-delay: 0.51s; }
+
+        @keyframes srvIconBounce {
+          0%   { transform: scale(0); }
+          65%  { transform: scale(1.18); }
+          100% { transform: scale(1); }
         }
 
         .srv-card-num {
@@ -181,7 +201,7 @@ const Services = () => {
           height: 56px;
           border-radius: 50%;
           margin-bottom: 24px;
-          transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+          transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
           position: relative;
           z-index: 1;
         }
@@ -220,7 +240,7 @@ const Services = () => {
           color: var(--card-accent);
           position: relative;
           z-index: 1;
-          transition: gap 0.3s ease;
+          transition: gap 0.35s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .srv-card a:hover .srv-card-cta { gap: 14px; }
@@ -228,11 +248,11 @@ const Services = () => {
         .srv-card-cta-arrow {
           width: 14px;
           height: 14px;
-          transition: transform 0.3s ease;
+          transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .srv-card a:hover .srv-card-cta-arrow {
-          transform: translateX(3px);
+          transform: translateX(5px);
         }
 
         /* ── Mobile ── */

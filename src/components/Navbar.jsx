@@ -43,7 +43,7 @@ const Navbar = () => {
           top: 0;
           z-index: 1000;
           font-family: 'Plus Jakarta Sans', sans-serif;
-          transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+          transition: background 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s ease, border-color 0.4s ease;
           background: rgba(245,240,232,0.82);
           backdrop-filter: saturate(120%) blur(16px);
           -webkit-backdrop-filter: saturate(120%) blur(16px);
@@ -85,7 +85,7 @@ const Navbar = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          transition: height 0.35s ease;
+          transition: height 0.4s cubic-bezier(0.22,1,0.36,1);
         }
 
         .nb-nav.nb-scrolled .nb-inner { height: 60px; }
@@ -105,12 +105,13 @@ const Navbar = () => {
           border-radius: 50%;
           object-fit: cover;
           border: 1.5px solid rgba(74,124,89,0.25);
-          transition: transform 0.35s ease, border-color 0.35s ease;
+          transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), border-color 0.35s ease, box-shadow 0.35s ease;
         }
 
         .nb-logo a:hover .nb-logo-img {
-          transform: rotate(-6deg) scale(1.06);
+          transform: perspective(300px) rotateY(-8deg) scale(1.06);
           border-color: rgba(74,124,89,0.55);
+          box-shadow: 0 0 14px rgba(74,124,89,0.25);
         }
 
         .nb-logo-text {
@@ -143,7 +144,7 @@ const Navbar = () => {
           padding: 7px 14px;
           border-radius: 50px;
           letter-spacing: 0.02em;
-          transition: color 0.25s ease, background 0.25s ease;
+          transition: color 0.25s ease, background 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .nb-link::after {
@@ -155,13 +156,17 @@ const Navbar = () => {
           width: 0;
           height: 1px;
           background: #4a7c59;
-          transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+          transition: width 0.35s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .nb-link:hover,
         .nb-link.nb-active {
           color: #4a7c59;
           background: rgba(74,124,89,0.08);
+        }
+
+        .nb-link:hover {
+          transform: translateY(-1px);
         }
 
         .nb-link.nb-active {
@@ -213,7 +218,7 @@ const Navbar = () => {
             opacity: 0;
             transform: translateY(-8px);
             pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1);
+            transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
           }
 
           .nb-links.nb-open {
@@ -225,13 +230,13 @@ const Navbar = () => {
           .nb-links.nb-open .nb-link {
             animation: mobileNavIn 0.35s cubic-bezier(0.22,1,0.36,1) both;
           }
-          .nb-links.nb-open .nb-link:nth-child(1) { animation-delay: 0.05s; }
-          .nb-links.nb-open .nb-link:nth-child(2) { animation-delay: 0.1s; }
-          .nb-links.nb-open .nb-link:nth-child(3) { animation-delay: 0.15s; }
-          .nb-links.nb-open .nb-link:nth-child(4) { animation-delay: 0.2s; }
+          .nb-links.nb-open .nb-link:nth-child(1) { animation-delay: 0.06s; }
+          .nb-links.nb-open .nb-link:nth-child(2) { animation-delay: 0.12s; }
+          .nb-links.nb-open .nb-link:nth-child(3) { animation-delay: 0.18s; }
+          .nb-links.nb-open .nb-link:nth-child(4) { animation-delay: 0.24s; }
           @keyframes mobileNavIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateX(-16px) scale(0.96); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
           }
 
           .nb-link {

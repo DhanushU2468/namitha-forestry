@@ -138,20 +138,32 @@ const SearchSection = () => {
           border-radius: 20px;
           padding: 5px 14px;
           cursor: pointer;
-          transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+          transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
         }
 
         .ss-tag:hover {
           background: rgba(114,184,92,0.14);
           border-color: rgba(114,184,92,0.35);
-          transform: translateY(-1px);
+          transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(114,184,92,0.1);
+        }
+
+        .ss-tag:active {
+          transform: scale(0.92);
+          transition-duration: 0.08s;
         }
 
         .ss-tag.ss-tag--active {
           background: #72b85c;
           color: #f5f0e8;
           border-color: #72b85c;
+          animation: ssTagShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes ssTagShimmer {
+          0%   { box-shadow: 0 0 0 0 rgba(114,184,92,0); }
+          50%  { box-shadow: 0 0 12px 2px rgba(114,184,92,0.3); }
+          100% { box-shadow: 0 0 0 0 rgba(114,184,92,0); }
         }
 
         /* ── Result count ── */
@@ -185,7 +197,7 @@ const SearchSection = () => {
           transform: translateY(-50%);
           color: #72b85c;
           pointer-events: none;
-          transition: color 0.25s ease;
+          transition: color 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
         }
 
         .ss-clear {
@@ -230,6 +242,17 @@ const SearchSection = () => {
           background: #fff;
           border-color: #72b85c;
           box-shadow: 0 0 0 3px rgba(114,184,92,0.1);
+          animation: ssInputGlow 2s ease-in-out infinite;
+        }
+
+        .ss-search-wrap:focus-within .ss-search-icon {
+          transform: translateY(-50%) scale(1.15);
+          color: #4a9e3e;
+        }
+
+        @keyframes ssInputGlow {
+          0%,100% { box-shadow: 0 0 0 3px rgba(114,184,92,0.1); }
+          50%     { box-shadow: 0 0 0 5px rgba(114,184,92,0.2), 0 0 16px rgba(114,184,92,0.08); }
         }
 
         /* ── Results grid ── */
@@ -265,6 +288,12 @@ const SearchSection = () => {
           background: rgba(114,184,92,0.07);
           margin: 0 auto 16px;
           color: #72b85c;
+          animation: ssStateFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes ssStateFloat {
+          0%,100% { transform: translateY(0); }
+          50%     { transform: translateY(-6px); }
         }
 
         .ss-state strong {
@@ -284,16 +313,21 @@ const SearchSection = () => {
           overflow: hidden;
           display: flex;
           flex-direction: column;
-          transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
-                      box-shadow 0.35s ease,
+          transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+                      box-shadow 0.4s ease,
                       border-color 0.35s ease;
-          animation: ssCardIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+          animation: ssCardIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
         }
 
         .ss-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 48px rgba(47,92,41,0.1), 0 4px 12px rgba(47,92,41,0.06);
+          transform: translateY(-8px);
+          box-shadow: 0 20px 48px rgba(47,92,41,0.12), 0 4px 12px rgba(47,92,41,0.06), 0 0 20px rgba(114,184,92,0.06);
           border-color: rgba(114,184,92,0.35);
+        }
+
+        .ss-card:active {
+          transform: translateY(-2px) scale(0.98);
+          transition-duration: 0.1s;
         }
 
         .ss-card:hover .ss-card-img { transform: scale(1.05); }
@@ -311,7 +345,7 @@ const SearchSection = () => {
           height: 100%;
           object-fit: cover;
           display: block;
-          transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+          transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
         }
 
         .ss-card-cat {
@@ -390,19 +424,24 @@ const SearchSection = () => {
           text-transform: uppercase;
           color: #72b85c;
           cursor: pointer;
-          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, gap 0.25s ease;
+          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, gap 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.2s ease;
         }
 
         .ss-contact-btn:hover {
           background: #72b85c;
           border-color: #72b85c;
           color: #f5f0e8;
-          gap: 10px;
+          gap: 11px;
+        }
+
+        .ss-contact-btn:active {
+          transform: scale(0.93);
+          transition-duration: 0.08s;
         }
 
         @keyframes ssCardIn {
-          from { opacity: 0; transform: translateY(18px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(24px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @media (max-width: 768px) {

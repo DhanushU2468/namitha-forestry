@@ -74,11 +74,19 @@ const CSS = `
   .cs-tab::after {
     content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
     height: 2px; background: var(--tab-accent);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
   }
   .cs-tab.cs-active { color: #1c2b1e; font-weight: 500; }
   .cs-tab.cs-active::after { transform: scaleX(1); }
+  .cs-tab.cs-active .cs-tab-icon {
+    animation: csTabIconBounce 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes csTabIconBounce {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
   .cs-tab:hover:not(.cs-active) { color: #4a5c4d; }
   .cs-tab-icon {
     width: 30px; height: 30px; border-radius: 50%;
@@ -97,7 +105,7 @@ const CSS = `
   .cs-panel {
     padding: 52px 48px 80px; position: relative; z-index: 1;
     opacity: 0; transform: translateY(14px);
-    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
   }
   .cs-panel.cs-panel-in { opacity: 1; transform: none; }
 
@@ -141,6 +149,11 @@ const CSS = `
   }
   .cs-feat-img.cs-feat-img--active {
     opacity: 1; transform: scale(1);
+    animation: csKenBurns 8s ease-in-out infinite alternate;
+  }
+  @keyframes csKenBurns {
+    0%   { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.04) translate(-1%, -0.5%); }
   }
   .cs-feat-img.cs-feat-img--prev {
     opacity: 0; transform: scale(0.97);
@@ -213,8 +226,8 @@ const CSS = `
   .cs-feat-text {
     position: absolute; inset: 28px 28px 24px;
     display: flex; flex-direction: column;
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    opacity: 0; transform: translateY(10px) translateX(-8px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
     pointer-events: none;
   }
   .cs-feat-text.cs-feat-text--active {
@@ -273,15 +286,15 @@ const CSS = `
     background: #fff; border: 1px solid rgba(74,124,89,0.1);
     border-radius: 4px; overflow: hidden; cursor: pointer;
     display: flex; flex-direction: column; position: relative;
-    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease, border-color 0.35s ease;
   }
   .cs-mcard::before {
     content: ''; position: absolute; bottom: 0; left: 0; right: 0;
     height: 2px; background: var(--card-accent);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); z-index: 1;
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); z-index: 1;
   }
-  .cs-mcard:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(28,43,30,0.1); border-color: rgba(74,124,89,0.22); }
+  .cs-mcard:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(28,43,30,0.1), 0 -4px 16px rgba(74,124,89,0.06); border-color: rgba(74,124,89,0.22); }
   .cs-mcard:hover::before { transform: scaleX(1); }
   .cs-mcard:hover .cs-mcard-img { transform: scale(1.06); }
 
@@ -289,6 +302,11 @@ const CSS = `
   .cs-mcard.cs-mcard--active {
     border-color: var(--card-accent) !important;
     box-shadow: 0 0 0 2px var(--card-accent-ring), 0 8px 24px rgba(28,43,30,0.08);
+    animation: csMcardPulse 2s ease-in-out infinite;
+  }
+  @keyframes csMcardPulse {
+    0%,100% { box-shadow: 0 0 0 2px var(--card-accent-ring), 0 8px 24px rgba(28,43,30,0.08); }
+    50%     { box-shadow: 0 0 0 4px var(--card-accent-ring), 0 8px 24px rgba(28,43,30,0.12); }
   }
 
   .cs-mcard-img-wrap {
@@ -301,7 +319,8 @@ const CSS = `
     0%   { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
-  .cs-mcard-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s cubic-bezier(0.22,1,0.36,1); }
+  .cs-mcard-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .cs-mcard:active { transform: translateY(-2px) scale(0.98); transition-duration: 0.1s; }
   .cs-mcard-body { padding: 14px 14px 12px; flex: 1; display: flex; flex-direction: column; }
   .cs-mcard-name {
     font-family: 'Cormorant Garamond', serif;
@@ -320,9 +339,9 @@ const CSS = `
     width: 28px; height: 28px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     border: 1px solid currentColor; background: none; cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: background 0.25s ease, color 0.2s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
-  .cs-mcard-btn:hover { background: var(--card-accent); color: #fff; border-color: var(--card-accent); transform: scale(1.1); }
+  .cs-mcard-btn:hover { background: var(--card-accent); color: #fff; border-color: var(--card-accent); transform: scale(1.15) rotate(45deg); }
 
   .cs-mcard--more {
     display: flex; align-items: center; justify-content: center;
@@ -346,9 +365,9 @@ const CSS = `
     border: 1px solid rgba(74,124,89,0.3);
     display: flex; align-items: center; justify-content: center;
     color: #4a7c59; margin-top: 4px;
-    transition: background 0.25s ease, border-color 0.25s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
   }
-  .cs-mcard--more:hover .cs-mcard--more-arrow { background: #4a7c59; border-color: #4a7c59; color: #fff; }
+  .cs-mcard--more:hover .cs-mcard--more-arrow { background: #4a7c59; border-color: #4a7c59; color: #fff; transform: rotate(45deg); }
 
   /* ── Modal ── */
   .cs-modal-overlay {
@@ -364,11 +383,11 @@ const CSS = `
     width: 100%; max-width: 820px; max-height: 92vh;
     overflow-y: auto; position: relative;
     box-shadow: 0 40px 80px rgba(10,18,11,0.35);
-    animation: moSlide 0.35s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation: moSlide 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
   }
   @keyframes moSlide {
-    from { opacity: 0; transform: translateY(24px) scale(0.97); }
-    to   { opacity: 1; transform: none; }
+    from { opacity: 0; transform: translateY(28px) scale(0.94); filter: blur(4px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
   }
   .cs-modal-close {
     position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
@@ -376,9 +395,10 @@ const CSS = `
     border: 1px solid rgba(74,124,89,0.18);
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; z-index: 10; color: #1c2b1e; backdrop-filter: blur(8px);
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
   }
-  .cs-modal-close:hover { background: #1c2b1e; color: #f9f5ee; transform: scale(1.08); }
+  .cs-modal-close:hover { background: #1c2b1e; color: #f9f5ee; transform: scale(1.12) rotate(90deg); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .cs-modal-close:active { transform: scale(0.95); transition-duration: 0.08s; }
   .cs-modal-img-wrap { position: relative; height: 340px; overflow: hidden; background: #e4e0d6; flex-shrink: 0; }
   .cs-modal-img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cs-modal-img-overlay {
@@ -417,9 +437,10 @@ const CSS = `
     font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500;
     letter-spacing: 0.1em; text-transform: uppercase;
     border: none; border-radius: 2px; cursor: pointer;
-    transition: background 0.25s ease, gap 0.25s ease;
+    transition: background 0.25s ease, gap 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
   .cs-modal-btn-primary:hover { background: #4a7c59; gap: 14px; }
+  .cs-modal-btn-primary:active { transform: scale(0.96); transition-duration: 0.08s; }
   .cs-modal-btn-ghost {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 13px 24px; background: none; color: #4a7c59;

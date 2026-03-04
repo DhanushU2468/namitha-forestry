@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-coverflow';
 import { plants } from '../data/plants';
-import { Trees, Flower, Apple, ArrowRight, X } from 'lucide-react';
+import { Trees, Flower, Apple, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const CATEGORY_ICONS = {
   'Forestry Plants': Trees,
@@ -25,10 +23,10 @@ const CSS = `
 
   /* ── Section wrapper ── */
   .fs-section {
-    background: #1c2b1e;
+    background: #4a7c59;
     background-image:
-      radial-gradient(ellipse at 20% 50%, rgba(74,124,89,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(107,143,78,0.08) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 50%, rgba(245,240,232,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(245,240,232,0.08) 0%, transparent 50%);
     padding: 100px 0 80px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     position: relative;
@@ -40,7 +38,7 @@ const CSS = `
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%234a7c59' fill-opacity='0.08'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23f5f0e8' fill-opacity='0.08'/%3E%3C/svg%3E");
     pointer-events: none;
   }
 
@@ -77,7 +75,7 @@ const CSS = `
     font-weight: 500;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: rgba(90,158,94,0.9);
+    color: rgba(245,240,232,0.9);
     margin-bottom: 14px;
   }
 
@@ -93,7 +91,7 @@ const CSS = `
 
   .fs-title em {
     font-style: italic;
-    color: rgba(90,158,94,0.9);
+    color: rgba(245,240,232,0.9);
   }
 
   .fs-subtitle {
@@ -108,7 +106,7 @@ const CSS = `
   .fs-divider {
     width: 40px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(90,158,94,0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(245,240,232,0.6), transparent);
     margin: 20px auto 0;
   }
 
@@ -133,18 +131,23 @@ const CSS = `
     height: 100%;
     border: 1px solid rgba(74,124,89,0.1);
     transition:
-      transform 0.4s cubic-bezier(0.22,1,0.36,1),
-      box-shadow 0.4s ease;
+      transform 0.45s cubic-bezier(0.34,1.56,0.64,1),
+      box-shadow 0.45s ease;
     cursor: pointer;
   }
 
   .fs-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 24px 56px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(74,124,89,0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(74,124,89,0.15), 0 0 30px rgba(74,124,89,0.1);
+  }
+
+  .fs-card:active {
+    transform: translateY(-4px) scale(0.98);
+    transition-duration: 0.1s;
   }
 
   .fs-card:hover .fs-card-img {
-    transform: scale(1.06);
+    transform: scale(1.08) translateX(2%);
   }
 
   .fs-card-img-wrap {
@@ -159,7 +162,7 @@ const CSS = `
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
   }
 
   .fs-card-cat-badge {
@@ -178,6 +181,14 @@ const CSS = `
     padding: 4px 10px;
     border-radius: 20px;
     backdrop-filter: blur(8px);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+    transform: translateY(-6px) scale(0.9);
+    opacity: 0;
+  }
+
+  .fs-card:hover .fs-card-cat-badge {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 
   .fs-card-body {
@@ -238,81 +249,53 @@ const CSS = `
     border-radius: 20px;
     padding: 6px 13px;
     cursor: pointer;
-    transition: background 0.25s ease, color 0.25s ease, gap 0.25s ease;
+    transition: background 0.25s ease, color 0.25s ease, gap 0.3s cubic-bezier(0.34,1.56,0.64,1);
   }
 
-  .fs-card-btn:hover { gap: 9px; }
+  .fs-card-btn:hover { gap: 10px; }
+  .fs-card-btn:active { transform: scale(0.93); transition-duration: 0.1s; }
 
-  /* ── Navigation ── */
-  .fs-swiper .swiper-button-prev,
-  .fs-swiper .swiper-button-next {
-    width: 46px;
-    height: 46px;
+  /* ── Custom Navigation Buttons ── */
+  .fs-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    color: #f5f0e8;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245,240,232,0.95);
+    border: 1.5px solid rgba(74,124,89,0.18);
+    color: #4a7c59;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+    backdrop-filter: blur(8px);
     transition:
-      background 0.35s cubic-bezier(0.22,1,0.36,1),
-      color 0.35s ease,
-      border-color 0.35s ease,
-      box-shadow 0.35s ease,
-      transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      background 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
 
-  .fs-swiper .swiper-button-prev::after,
-  .fs-swiper .swiper-button-next::after { content: ''; }
-
-  .fs-swiper .swiper-button-prev::before,
-  .fs-swiper .swiper-button-next::before {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-top: 1.8px solid currentColor;
-    border-right: 1.8px solid currentColor;
-    transition: transform 0.3s ease;
-  }
-
-  .fs-swiper .swiper-button-prev::before {
-    transform: rotate(-135deg) translate(-1px, 1px);
-  }
-  .fs-swiper .swiper-button-next::before {
-    transform: rotate(45deg) translate(-1px, 1px);
-  }
-
-  .fs-swiper .swiper-button-prev:hover,
-  .fs-swiper .swiper-button-next:hover {
+  .fs-nav-btn:hover {
     background: #4a7c59;
     color: #f5f0e8;
     border-color: #4a7c59;
-    transform: scale(1.12);
-    box-shadow: 0 12px 30px rgba(74,124,89,0.4);
+    transform: translateY(-60%) scale(1.15);
+    box-shadow: 0 8px 28px rgba(74,124,89,0.35), 0 2px 8px rgba(0,0,0,0.1);
   }
 
-  .fs-swiper .swiper-button-prev:hover::before {
-    transform: rotate(-135deg) translate(-3px, 3px);
-  }
-  .fs-swiper .swiper-button-next:hover::before {
-    transform: rotate(45deg) translate(-3px, 3px);
+  .fs-nav-btn:active {
+    transform: translateY(-60%) scale(0.92);
+    transition-duration: 0.08s;
   }
 
-  .fs-swiper .swiper-button-prev:active,
-  .fs-swiper .swiper-button-next:active {
-    transform: scale(0.95);
-    transition-duration: 0.1s;
-  }
-
-  .fs-swiper .swiper-button-disabled {
-    opacity: 0 !important;
-    pointer-events: none;
-    transform: scale(0.85) !important;
-  }
-
-  .fs-swiper .swiper-button-prev { left: 8px; }
-  .fs-swiper .swiper-button-next { right: 8px; }
+  .fs-nav-prev { left: 12px; }
+  .fs-nav-next { right: 12px; }
 
   /* ── Pagination ── */
   .fs-swiper .swiper-pagination {
@@ -340,8 +323,8 @@ const CSS = `
     width: 24px;
     height: 6px;
     border-radius: 3px;
-    background: #5a9e5e;
-    box-shadow: 0 2px 8px rgba(90,158,94,0.4);
+    background: #f5f0e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 12px rgba(245,240,232,0.4);
   }
 
   /* ── Modal ── */
@@ -355,7 +338,7 @@ const CSS = `
     align-items: center;
     z-index: 9999;
     padding: 20px;
-    animation: fsMFadeIn 0.25s ease forwards;
+    animation: fsMFadeIn 0.3s ease forwards;
   }
 
   .fs-modal-box {
@@ -367,7 +350,7 @@ const CSS = `
     overflow-y: auto;
     position: relative;
     box-shadow: 0 32px 72px rgba(0,0,0,0.35);
-    animation: fsMScaleUp 0.3s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation: fsMScaleUp 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
   }
 
   .fs-modal-img {
@@ -400,14 +383,20 @@ const CSS = `
     cursor: pointer;
     z-index: 10;
     color: #1c2b1e;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background 0.25s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
     backdrop-filter: blur(8px);
   }
 
   .fs-modal-close:hover {
     background: #1c2b1e;
     color: #f9f5ee;
-    transform: scale(1.1);
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .fs-modal-close:active {
+    transform: scale(0.95);
+    transition-duration: 0.08s;
   }
 
   .fs-modal-body {
@@ -463,8 +452,8 @@ const CSS = `
   }
 
   @keyframes fsMScaleUp {
-    from { opacity: 0; transform: scale(0.96) translateY(14px); }
-    to   { opacity: 1; transform: scale(1)    translateY(0); }
+    from { opacity: 0; transform: scale(0.93) translateY(20px); filter: blur(4px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    filter: blur(0); }
   }
 
   @media (max-width: 768px) {
@@ -486,6 +475,7 @@ const CSS = `
 
 const FeaturedSwiper = () => {
   const [selectedPlant, setSelectedPlant] = useState(null);
+  const swiperRef = useRef(null);
 
   // Use all plants
   const allPlants = plants;
@@ -518,13 +508,13 @@ const FeaturedSwiper = () => {
         <div className="fs-swiper-wrap">
           <Swiper
             className="fs-swiper"
-            modules={[Pagination, Navigation, Autoplay]}
+            modules={[Pagination, Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
             loop={allPlants.length > 4}
             autoplay={{ delay: 3200, disableOnInteraction: false, pauseOnMouseEnter: true }}
             pagination={{ clickable: true, dynamicBullets: true }}
-            navigation
+            onSwiper={(s) => { swiperRef.current = s; }}
             breakpoints={{
               480: { slidesPerView: 2, spaceBetween: 16 },
               768: { slidesPerView: 3, spaceBetween: 18 },
@@ -577,6 +567,14 @@ const FeaturedSwiper = () => {
               );
             })}
           </Swiper>
+
+          {/* Custom navigation buttons */}
+          <button className="fs-nav-btn fs-nav-prev" onClick={() => swiperRef.current?.slidePrev()} aria-label="Previous slide">
+            <ChevronLeft size={22} strokeWidth={2} />
+          </button>
+          <button className="fs-nav-btn fs-nav-next" onClick={() => swiperRef.current?.slideNext()} aria-label="Next slide">
+            <ChevronRight size={22} strokeWidth={2} />
+          </button>
         </div>
       </section>
 
