@@ -495,7 +495,7 @@ const ContactFooter = () => {
 
       <div className="cf-wrap" ref={sectionRef}>
         {/* Top decorative stripe */}
-        <div className="cf-border-bar" />
+        {/* <div className="cf-border-bar" /> */}
 
         <section id="contact" className="cf-section">
           {/* Background decorative text */}
